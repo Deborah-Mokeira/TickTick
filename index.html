@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+  name="description"
+  content="Looking for a powerful tool to conquer your daily tasks and take charge of your productivity? Look no further than our sleek and intuitive to-do list! With intuitive features and customizable options, you'll be able to take control of your to-do list and tackle even the most daunting of tasks with ease. Say goodbye to cluttered and disorganized days and hello to a streamlined and efficient workflow. Start using our to-do list today and start achieving your goals like a pro" />
+  <!--Adding font awesome-->
+  <script src="https://kit.fontawesome.com/5bb82ad67e.js" crossorigin="anonymous"></script>
+  <!--Adding google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap" rel="stylesheet">
+<!--Adding CSS-->
+<link rel="stylesheet" href="src/style.css">
+  <title>TickTick to-do-list</title>
+</head>
+<body>
+ <div id="container" class="header">
+  <h2>My To Do List</h2>
+  <input type="text" id="myInput" placeholder="To do....">
+  <span onclick="newElement()" class="add-btn">Add</span>
+ </div>
+ <ul id="myUL">
+  <li>Wake up</li>
+  <li>Make bed</li>
+  <li>Take a shower</li>
+  <li>Get dressed</li>
+  <li>Brush teeth</li>
+  <li>Put on makeup</li>
+  <li>Eat breakfast</li>
+  <li class="checked">Pay bills</li>
+ </ul>
+
+  <!--Adding JavaScript-->
+  <script src="src/app.js"></script>
+</body>
+</html>
