@@ -1,52 +1,119 @@
-//Creating a "close" button and appending it to each list item
-const myToDoList=document.getElementsByTagName("LI");
+let taskList = [];
 
-for ( let i=0; i< myToDoList.length; i++ ) {//Initialize i
-  const span=document.createElement("SPAN");
-  const txt=document.createTextNode("\u00D7");
-  span.className="close";
-  span.appendChild(txt);
-  myToDoList[i].appendChild(span);
+// Retrieve taskList from local storage if it exists
+if (localStorage.getItem('taskList')) {
+  taskList = JSON.parse(localStorage.getItem('taskList'));
 }
-//Click on a close button to hide the current list item
-let close=document.getElementsByClassName("close");
-for(let i=0; i< close.length; i++){
-  close[i].onclick=function(){
-    let div=this.parentElement;
-    div.style.display="none";
+
+const form = document.getElementById('todo-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Get form values
+  const taskNameInput = document.getElementById('task-name');
+  const dueTimeInput = document.getElementById('due-time');
+
+  const taskName = taskNameInput.value.trim();
+  const dueTime = dueTimeInput.value;
+
+  // Create new task object
+  const task = {
+    name: taskName,
+    dueTime: dueTime
+  };
+
+  // Add task to taskList array and clear the form
+  taskList.push(task);
+  localStorage.setItem('taskList', JSON.stringify(taskList));
+  form.reset();
+
+  // Render the task list
+  renderTaskList();
+});
+
+function renderTaskList() {
+  const taskListElement = document.getElementById('task-list');
+  taskListElement.innerHTML = '';
+
+  // Loop through taskList array and create HTML for each task
+  for (let i = 0; i < taskList.length; i++) {
+    const task = taskList[i];
+
+    const listItem = document.createElement('li');
+    listItem.classList.add('task');
+
+    const taskName = document.createElement('h3');
+    taskName.textContent = task.name;
+    listItem.appendChild(taskName);
+
+    const dueTime = document.createElement('p');
+    dueTime.textContent = 'Due Time: ' + task.dueTime;
+    listItem.appendChild(dueTime);
+
+    const editButton = document.createElement('button');
+    editButton.classList.add('edit-button');
+    editButton.innerHTML = '<i class="fas fa-edit"></i>';
+    editButton.addEventListener('click', function() {
+      editTask(i);
+    });
+    listItem.appendChild(editButton);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-button');
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteButton.addEventListener('click', function() {
+      deleteTask(i);
+    });
+    listItem.appendChild(deleteButton);
+
+    taskListElement.appendChild(listItem);
   }
 }
-//Adding a "checked" symbol when a list item is clicked
-let list=document.querySelector('ul');
-list.addEventListener('click',function(ev){
-  if(ev.target.tagName==='LI'){
-    ev.target.classList.toggle('checked');
-  }
-},false);
 
-//Create a new list item when clicking on the 'Add' button
-function newElement(){
-  let li=document.createElement("li");
-  let inputValue=document.getElementById("myInput").value;
-  let addedValue=document.createTextNode(inputValue);
-  li.appendChild(addedValue);
-  if(inputValue===''){
-    alert("You must write something!");
-  }else{
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value="";
+function deleteTask(index) {
+  // Remove task from taskList array and update local storage
+  taskList.splice(index, 1);
+  localStorage.setItem('taskList', JSON.stringify(taskList));
 
-  let span=document.createElement("SPAN");
-  let txt=document.createTextNode("\u00D7");
-  span.className="close";
-  span.appendChild(txt);
-  li.appendChild(span);
+  // Re-render the task list
+  renderTaskList();
+}
 
-  for(let i=0; i< close.length; i++){
-    close[i].onclick=function(){
-      let div=this.parentElement;
-      div.style.display="none";
+function editTask(index) {
+  // Set form values to current values of task being edited
+  const task = taskList[index];
+  const taskNameInput = document.getElementById('task-name');
+  const dueTimeInput = document.getElementById('due-time');
+
+  taskNameInput.value = task.name;
+  dueTimeInput.value = task.dueTime;
+
+  // Remove task from taskList array and update local storage
+  taskList.splice(index, 1);
+  localStorage.setItem('taskList', JSON.stringify(taskList));
+
+  // Re-render the task list
+  renderTaskList();
+}
+
+// Populate dropdown menu with time options
+const dueTimeInput = document.getElementById('due-time');
+for (let i = 5; i <= 21; i++) {
+  const option = document.createElement('option');
+  if (i < 12) {
+    if (i === 6) {
+      option.textContent = i + ':00 AM';
+    } else {
+      option.textContent = '' + i + ':00 AM';
     }
+  } else if (i === 12) {
+    option.textContent = i + ':00 PM';
+  } else {
+    option.textContent = i - 12 + ':00 PM';
   }
+  option.value = option.textContent;
+  dueTimeInput.appendChild(option);
 }
+
+// Render the task list on page load
+renderTaskList();
