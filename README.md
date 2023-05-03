@@ -13,9 +13,9 @@
  * Start adding tasks to your to-do list!
 
 # Usage: 
- 1.To add a new task, type the task in the input box and click the "Add" button .
- 2.To delete a task, click the "delete" button that appears below the task.
- 3.To select a time for the task to be completed, choose the desired time from the drop-down menu next to the input box.
+ * To add a new task, type the task in the input box and click the "Add" button .
+ * To delete a task, click the "delete" button that appears below the task.
+ * To select a time for the task to be completed, choose the desired time from the drop-down menu next to the input box.
 
 # Contributing
 * Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. 
