@@ -8,9 +8,9 @@
  * Select time for the task 
  
  # Installation:
- *Clone the repository to your local machine using git clone.
- *Open index.html in your web browser.
- *Start adding tasks to your to-do list!
+ * Clone the repository to your local machine using git clone.
+ * Open index.html in your web browser.
+ * Start adding tasks to your to-do list!
 
 # Usage: 
  1.To add a new task, type the task in the input box and click the "Add" button .
